@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Params } from '@angular/router';
-import { IQuestions, IQuestionsResponse } from 'app/models';
+import { IQuestions, IQuestionsResponse, State } from 'app/models';
 import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -12,6 +12,11 @@ export class QuestionsService {
   private readonly url = 'https://opentdb.com/api.php?type=multiple';
   questions = signal<IQuestions[]>([]);
   score = signal<number>(0);
+  state = signal<State>({
+    startGame: true,
+    playGame: false,
+    scoreTitle: false
+  });
   endGame = signal<boolean>(false);
 
   constructor(private http: HttpClient) { }

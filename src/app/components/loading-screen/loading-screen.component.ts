@@ -1,6 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, inject, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { QuestionsService } from '@services/questions.service';
 import { Categories, Difficulty } from 'app/models';
 
 @Component({
@@ -13,6 +14,7 @@ import { Categories, Difficulty } from 'app/models';
 })
 export class LoadingScreenComponent {
   fb = inject(NonNullableFormBuilder);
+  #questions = inject(QuestionsService);
 
   categories: Array<KeyValue<string, string>> = Object.entries(Categories).filter(([_, v]) => typeof v === 'string').map(([key, value]) => ({key, value: String(value)}))
   difficulty: Array<KeyValue<string, string>> = Object.entries(Difficulty).map(([key, value]) => ({key: String(key).toLowerCase(), value: String(value)}));
@@ -26,6 +28,7 @@ export class LoadingScreenComponent {
   formValues = output<any>();
 
   submit() {
+    this.#questions.state.set({playGame: true, startGame: false, scoreTitle: false});
     this.formValues.emit(this.form.getRawValue());
   }
 

@@ -1,10 +1,9 @@
 <div class="flex h-screen column">
-  @if(loadingScreen) {
+  @switch (true) { @case(state().startGame) {
   <loading-screen (formValues)="params = $event"></loading-screen>
-  <pre>{{ params | json }}</pre>
-  } @if (params) {
+  } @case (state().playGame) {
   <questions [params]="params"></questions>
-  } @else {
-  <div>You guess {{ score() }} out of {{ questions().length }}</div>
-  }
+  } @case (state().scoreTitle) {
+  <end-screen></end-screen>
+  } }
 </div>

@@ -4,23 +4,17 @@ import { QuestionsService } from '@services/questions.service';
 import { QuestionsComponent } from '@components/questions/questions.component';
 import { LoadingScreenComponent } from '@components/loading-screen/loading-screen.component';
 import { Params } from '@angular/router';
+import { EndScreenComponent } from '@components/end-screen/end-screen.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, QuestionsComponent, LoadingScreenComponent],
+  imports: [CommonModule, QuestionsComponent, LoadingScreenComponent, EndScreenComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent {
   #questions = inject(QuestionsService);
-  questions = computed(() => this.#questions.questions() ?? []);
-  score = computed(() => this.#questions.score() ?? 0);
-  endGame = computed(() => this.#questions.endGame());
-  loadingScreen = true;
+  state = computed(() => this.#questions.state());
   params!: Params;
-
-  ngOnInit(): void {
-  }
 }
