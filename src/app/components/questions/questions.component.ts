@@ -2,13 +2,15 @@ import { Component, computed, effect, inject, input, signal } from '@angular/cor
 import { QuestionsService } from '@services/questions.service';
 import { QuestionComponent } from './question/question.component';
 import { Params } from '@angular/router';
+import { LoadingBarComponent } from '@components/loading-bar/loading-bar.component';
 
 @Component({
   selector: 'questions',
   templateUrl: './questions.component.html',
   standalone: true,
   imports: [
-    QuestionComponent
+    QuestionComponent,
+    LoadingBarComponent
   ],
   styles: [`
     :host {

@@ -9,10 +9,11 @@ import { QuestionsService } from '@services/questions.service';
 export class EndScreenComponent {
 
   #questions = inject(QuestionsService);
-  score = computed(() => this.#questions.score() ?? 0);
-  questions = computed(() => this.#questions.questions() ?? []);
+  score = computed(() => this.#questions.score());
+  questions = computed(() => this.#questions.questions());
 
   playAgain() {
+    this.#questions.questions.set([]);
     this.#questions.state.set({playGame: false, scoreTitle: false, startGame: true});
   }
 }

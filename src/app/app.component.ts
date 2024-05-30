@@ -10,8 +10,7 @@ import { EndScreenComponent } from '@components/end-screen/end-screen.component'
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, QuestionsComponent, LoadingScreenComponent, EndScreenComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   #questions = inject(QuestionsService);

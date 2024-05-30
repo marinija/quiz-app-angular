@@ -17,7 +17,6 @@ export class QuestionsService {
     playGame: false,
     scoreTitle: false
   });
-  endGame = signal<boolean>(false);
 
   constructor(private http: HttpClient) { }
 

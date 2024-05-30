@@ -10,7 +10,12 @@ import { Categories, Difficulty } from 'app/models';
   standalone: true,
   imports: [
     ReactiveFormsModule
-  ]
+  ],
+  styles: [`
+    :host {
+      width: 100%;
+    }
+  `]
 })
 export class LoadingScreenComponent {
   fb = inject(NonNullableFormBuilder);
