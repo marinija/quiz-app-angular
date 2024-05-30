@@ -1,0 +1,10 @@
+<div class="flex h-screen column">
+  @if(loadingScreen) {
+  <loading-screen (formValues)="params = $event"></loading-screen>
+  <pre>{{ params | json }}</pre>
+  } @if (params) {
+  <questions [params]="params"></questions>
+  } @else {
+  <div>You guess {{ score() }} out of {{ questions().length }}</div>
+  }
+</div>

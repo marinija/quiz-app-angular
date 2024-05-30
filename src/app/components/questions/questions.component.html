@@ -1,0 +1,25 @@
+@if(questions) {
+<div class="quiz flex flex-col container mx-auto">
+  <question
+    [question]="questions[currentQuestion]"
+    [(checked)]="answerChecked"
+  ></question>
+  <div class="flex">
+    @if (currentQuestion < questions.length - 1) {
+    <button
+      (click)="nextQuestion()"
+      class="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+      Next
+    </button>
+    } @else {
+    <button
+      (click)="showScore()"
+      class="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+      Submit
+    </button>
+    }
+  </div>
+</div>
+}
