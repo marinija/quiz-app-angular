@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
 import { QuestionsService } from '@services/questions.service';
 import { QuestionComponent } from './question/question.component';
 import { Params } from '@angular/router';
 import { LoadingBarComponent } from '@components/loading-bar/loading-bar.component';
-import { delay, finalize, interval, map, Subject, Subscription, takeWhile } from 'rxjs';
+import { finalize, interval, map, Subscription, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'questions',
@@ -29,7 +29,6 @@ export class QuestionsComponent implements OnInit {
   protected score = signal(0);
   countdown = signal(10);
   private timer$ = new Subscription();
-  cdr = inject(ChangeDetectorRef);
 
   constructor() {
     effect(() => {
