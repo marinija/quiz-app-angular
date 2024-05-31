@@ -27,7 +27,7 @@ export class QuestionsComponent implements OnInit {
   questions = computed(() => this.#questions.questions());
   protected answerChecked = signal('');
   protected score = signal(0);
-  countdown = signal(10);
+  countdown = signal(30);
   private timer$ = new Subscription();
 
   constructor() {
@@ -62,7 +62,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   nextQuestion(): void {
-    this.countdown.set(10);
+    this.countdown.set(30);
     this.correctAnswer();
     this.answerChecked.set('');
     if (this.currentQuestion < this.questions().length - 1) {
@@ -78,6 +78,7 @@ export class QuestionsComponent implements OnInit {
 
   private correctAnswer() {
     if(this.questions()[this.currentQuestion].correct_answer === this.answerChecked()) {
+      this.#questions.correctAnswers.update(v => v = [...v, this.questions()[this.currentQuestion]]);
       this.score.update(v => v += 1);
     }
   }

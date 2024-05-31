@@ -17,6 +17,7 @@ export class QuestionsService {
     playGame: false,
     scoreTitle: false
   });
+  correctAnswers = signal<IQuestions[]>([]);
 
   constructor(private http: HttpClient) { }
 
