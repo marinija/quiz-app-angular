@@ -1,8 +1,9 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
 import { QuestionsService } from '@services/questions.service';
 import { QuestionComponent } from './question/question.component';
 import { Params } from '@angular/router';
 import { LoadingBarComponent } from '@components/loading-bar/loading-bar.component';
+import { delay, finalize, interval, map, Subject, Subscription, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'questions',
@@ -18,7 +19,7 @@ import { LoadingBarComponent } from '@components/loading-bar/loading-bar.compone
     }
   `]
 })
-export class QuestionsComponent {
+export class QuestionsComponent implements OnInit {
 
   params = input.required<Params>();
   #questions = inject(QuestionsService);
@@ -26,6 +27,9 @@ export class QuestionsComponent {
   questions = computed(() => this.#questions.questions());
   protected answerChecked = signal('');
   protected score = signal(0);
+  countdown = signal(10);
+  private timer$ = new Subscription();
+  cdr = inject(ChangeDetectorRef);
 
   constructor() {
     effect(() => {
@@ -35,11 +39,41 @@ export class QuestionsComponent {
     })
   }
 
+  ngOnInit(): void {
+     this.startCountdown();
+  }
+
+  startCountdown() {
+    this.timer$ = interval(1000).pipe(
+      map(() => {
+        this.countdown.update(v => v-=1);
+        return this.countdown()
+        }
+      ),
+      takeWhile(count => count >= 0),
+      finalize(() => {
+        if(this.currentQuestion === this.questions().length - 1) {
+          this.showScore();
+        } else {
+          this.nextQuestion();
+          this.startCountdown();
+        }
+      })
+    ).subscribe();
+  }
+
   nextQuestion(): void {
+    this.countdown.set(10);
     this.correctAnswer();
     this.answerChecked.set('');
     if (this.currentQuestion < this.questions().length - 1) {
       this.currentQuestion++;
+    }
+  }
+
+  stopCountdown() {
+    if (this.timer$) {
+      this.timer$.unsubscribe();
     }
   }
 
@@ -50,6 +84,7 @@ export class QuestionsComponent {
   }
 
   showScore() {
+    this.stopCountdown();
     this.#questions.score.set(this.score());
     this.#questions.state.set({playGame: false, scoreTitle: true, startGame: false});
   }

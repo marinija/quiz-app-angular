@@ -1,5 +1,9 @@
 @if(questions(); as questions) {
-<div class="quiz">
+<div class="quiz h-full flex flex-col justify-center relative">
+  <p class="text-gray-900 dark:text-white absolute top-0 pt-5">
+    Countdown time for next question
+    {{ countdown() }}
+  </p>
   <question
     class="w-full"
     [question]="questions[currentQuestion]"
