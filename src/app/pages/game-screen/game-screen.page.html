@@ -1,0 +1,7 @@
+@switch (true) { @case(state().startGame) {
+<loading-screen (formValues)="params = $event" class="w-full"></loading-screen>
+} @case (state().playGame) {
+<questions [params]="params" class="h-full"></questions>
+} @case (state().scoreTitle) {
+<end-screen class="w-full"></end-screen>
+} }

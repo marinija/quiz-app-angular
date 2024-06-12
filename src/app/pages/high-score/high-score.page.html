@@ -1,0 +1,37 @@
+<a
+  [routerLink]="['/']"
+  class="bg-transparent mb-7 hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+>
+  Back to home
+</a>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-2">Category</th>
+        <th scope="col" class="px-6 py-2">Level</th>
+        <th scope="col" class="px-6 py-2">Correct answers</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(item of highScores; track $index) {
+      <tr
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      >
+        <td class="px-6 py-2">{{item.category}}</td>
+        <td class="px-6 py-2">{{item.level}}</td>
+        <td
+          class="px-6 py-2 text-right"
+          [ngClass]="item.score < 6 ? 'text-pink-500' : 'text-green-500'"
+        >
+          {{item.score}}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

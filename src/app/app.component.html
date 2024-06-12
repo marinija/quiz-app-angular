@@ -2,15 +2,6 @@
   <div
     class="flex flex-col w-full max-w-lg mx-auto h-full items-center justify-center px-4 md:px-0"
   >
-    @switch (true) { @case(state().startGame) {
-    <loading-screen
-      (formValues)="params = $event"
-      class="w-full"
-    ></loading-screen>
-    } @case (state().playGame) {
-    <questions [params]="params" class="h-full"></questions>
-    } @case (state().scoreTitle) {
-    <end-screen class="w-full"></end-screen>
-    } }
+    <router-outlet></router-outlet>
   </div>
 </div>
